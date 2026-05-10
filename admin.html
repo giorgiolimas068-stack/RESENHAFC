@@ -1136,12 +1136,13 @@
 
   }
 
-  function deletarProduto(id) {
+  async function deletarProduto(id) {
     if (!confirm('Tem certeza que deseja excluir este produto?')) return;
-    let produtos = getProdutos().filter(p => p.id !== id);
-    setProdutos(produtos);
+    const produtos = await getProdutos();
+    const novos = produtos.filter(p => p.id !== id);
+    await setProdutos(novos);
     showToast('🗑️ Produto removido!');
-    updateStats();
+    await updateStats();
     renderLista();
   }
 
